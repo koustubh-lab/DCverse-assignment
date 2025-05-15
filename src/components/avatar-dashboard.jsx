@@ -7,10 +7,13 @@ export default function AvatarDashboard() {
   const [avatars, setAvatars] = useState([]);
 
   async function fetchDummyData() {
-    const userResponse = await fetch("https://reqres.in/api/users?page=1");
-    const userData = await userResponse.json();
-
-    setAvatars(userData.data.slice(0, 3));
+    try {
+      const userResponse = await fetch("/.netlify/functions/fetchUsers");
+      const userData = await userResponse.json();
+      setAvatars(userData.data.slice(0, 3));
+    } catch (error) {
+      console.error("Failed to fetch avatars:", error.message);
+    }
   }
 
   useEffect(() => {
