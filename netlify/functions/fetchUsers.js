@@ -1,6 +1,10 @@
 export async function handler(event, context) {
   try {
-    const res = await fetch("https://reqres.in/api/users?page=1");
+    const res = await fetch("https://reqres.in/api/users?page=1", {
+      headers: {
+        "x-api-key": "reqres-free-v1",
+      },
+    });
     const data = await res.json();
 
     return {
